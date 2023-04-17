@@ -6,7 +6,7 @@ type Props = {
   label: string;
 };
 
-export const Item: React.FC<Props> = ({ type, label }) => {
+export const CanvasItem: React.FC<Props> = ({ type, label }) => {
   return (
     <Center w="200px" h={ITEM_TYPE_SIZE[type]} bgColor="cyan.400" p="4">
       <Text>{label}</Text>

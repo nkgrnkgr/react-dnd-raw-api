@@ -21,6 +21,7 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({ children }) => {
         }
         return false;
       }}
+      h="max-content"
       sx={{
         cursor: "move",
         opacity: isDragging ? "0.5" : "1.0",

@@ -1,6 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { CanvasItem } from "./CanvasItem";
 import { DraggableAndDroppableWrapper } from "./DraggableAndDroppableWrapper";
-import { Item } from "./Item";
 
 const DEFAULT_COLOR = "gray.300";
 
@@ -19,7 +19,7 @@ export const Row: React.FC<Props> = ({ items }) => {
     <Flex w="100%" minH="100px" bgColor={DEFAULT_COLOR}>
       {items.map((item) => (
         <DraggableAndDroppableWrapper key={item.id}>
-          <Item type={item.type} label={item.label} />
+          <CanvasItem type={item.type} label={item.label} />
         </DraggableAndDroppableWrapper>
       ))}
     </Flex>
