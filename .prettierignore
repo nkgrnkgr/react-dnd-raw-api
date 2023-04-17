@@ -1,0 +1,6 @@
+node_modules
+**/.next/**
+**/_next/**
+**/dist/**
+pnpm-lock.yaml
+public/google40d5e9f9d1022be2.html

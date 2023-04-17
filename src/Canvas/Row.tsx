@@ -1,5 +1,7 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { selector, useRecoilValue } from "recoil";
+import { dndAtom } from "../store/dnd";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { CanvasItem } from "./CanvasItem";
@@ -25,6 +27,11 @@ const createRowItemSelector = (rowId: string) =>
 
 export const Row: React.FC<Props> = ({ rowId }) => {
   const items = useRecoilValue(createRowItemSelector(rowId));
+
+  const dnd = useRecoilValue(dndAtom);
+  useEffect(() => {
+    items.find((item) => item.id === dnd.overItemId);
+  }, []);
 
   return (
     <Flex w="100%" minH="100px" bgColor={DEFAULT_COLOR}>
