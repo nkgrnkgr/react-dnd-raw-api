@@ -65,7 +65,7 @@ export const Canvas: React.FC = () => {
         <InvisibleRow />
       </Box>
       <Divider />
-      <pre>{JSON.stringify(dnd, null, 2)}</pre>
+      <pre style={{ width: "200px" }}>{JSON.stringify(dnd, null, 2)}</pre>
     </>
   );
 };

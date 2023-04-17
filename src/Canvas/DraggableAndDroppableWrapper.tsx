@@ -23,8 +23,8 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({
       }}
       onDragEnd={() => {
         setDnd({
-          ...dnd,
           draggingItemId: null,
+          overItemId: null,
         });
       }}
       onDragEnter={() => {
