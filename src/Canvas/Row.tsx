@@ -1,31 +1,42 @@
-import { Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import { selector, useRecoilValue } from "recoil";
+import { itemFamilyAtom } from "../store/item";
+import { rowAtomFamily } from "../store/row";
+import { CanvasItem } from "./CanvasItem";
+import { DraggableAndDroppableWrapper } from "./DraggableAndDroppableWrapper";
 
 const DEFAULT_COLOR = "gray.300";
 
-export const Row: React.FC = () => {
-  const [bgColor, setBgColor] = useState(DEFAULT_COLOR);
+type Props = {
+  rowId: string;
+};
 
-  const handleDragEnter = () => {
-    console.log("called a");
-    setBgColor("cyan");
-  };
-  const handleDragLeave = () => {
-    console.log("called b");
-    setBgColor(DEFAULT_COLOR);
-  };
+const createRowItemSelector = (rowId: string) =>
+  selector({
+    key: `rowItem-${rowId}`,
+    get: ({ get }) => {
+      const rowContent = get(rowAtomFamily(rowId));
+      const items = rowContent.itemIds.map((itemId) =>
+        get(itemFamilyAtom(itemId))
+      );
+      return items;
+    },
+  });
+
+export const Row: React.FC<Props> = ({ rowId }) => {
+  const items = useRecoilValue(createRowItemSelector(rowId));
 
   return (
-    <Box
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      w="500px"
-      minH="50px"
-      bgColor={bgColor}
-    ></Box>
+    <Flex w="100%" minH="100px" bgColor={DEFAULT_COLOR}>
+      {items.map((item) => (
+        <DraggableAndDroppableWrapper itemId={item.id} key={item.id}>
+          <CanvasItem itemId={item.id} />
+        </DraggableAndDroppableWrapper>
+      ))}
+    </Flex>
   );
 };
 
 export const InvisibleRow: React.FC = () => {
-  return <Box w="500px" minH="10px" bgColor="gray.100"></Box>;
+  return <Box w="100%" minH="10px" bgColor="gray.100"></Box>;
 };

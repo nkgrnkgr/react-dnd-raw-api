@@ -1,13 +1,20 @@
 import { Box, VStack } from "@chakra-ui/react";
-import { DraggableComponent } from "./DraggableComponent";
+import { DraggableWrapper } from "./DraggableWrapper";
+import { SidebarItem } from "./SidebarItem";
 
 export const SideBar: React.FC = () => {
   return (
     <Box w="300px" h="900px" bgColor="gray.300">
       <VStack mt="4" mb="4">
-        <DraggableComponent id="1" label="Item1" type="S" />
-        <DraggableComponent id="2" label="Item2" type="M" />
-        <DraggableComponent id="3" label="Item3" type="L" />
+        <DraggableWrapper>
+          <SidebarItem label="item1" type="S" />
+        </DraggableWrapper>
+        <DraggableWrapper>
+          <SidebarItem label="item2" type="M" />
+        </DraggableWrapper>
+        <DraggableWrapper>
+          <SidebarItem label="item3" type="L" />
+        </DraggableWrapper>
       </VStack>
     </Box>
   );
