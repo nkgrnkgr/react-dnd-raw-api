@@ -1,5 +1,5 @@
 import { Box, VStack } from "@chakra-ui/react";
-import { DraggableWrapper } from "./Draggable";
+import { DraggableWrapper } from "./DraggableWrapper";
 import { Item } from "./Item";
 
 export const SideBar: React.FC = () => {

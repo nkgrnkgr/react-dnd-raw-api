@@ -1,31 +1,31 @@
-import { Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import { DraggableAndDroppableWrapper } from "./DraggableAndDroppableWrapper";
+import { Item } from "./Item";
 
 const DEFAULT_COLOR = "gray.300";
 
-export const Row: React.FC = () => {
-  const [bgColor, setBgColor] = useState(DEFAULT_COLOR);
+type ItemProps = {
+  id: string;
+  type: string;
+  label: string;
+};
 
-  const handleDragEnter = () => {
-    console.log("called a");
-    setBgColor("cyan");
-  };
-  const handleDragLeave = () => {
-    console.log("called b");
-    setBgColor(DEFAULT_COLOR);
-  };
+type Props = {
+  items: ItemProps[];
+};
 
+export const Row: React.FC<Props> = ({ items }) => {
   return (
-    <Box
-      onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
-      w="500px"
-      minH="50px"
-      bgColor={bgColor}
-    ></Box>
+    <Flex w="100%" minH="100px" bgColor={DEFAULT_COLOR}>
+      {items.map((item) => (
+        <DraggableAndDroppableWrapper key={item.id}>
+          <Item type={item.type} label={item.label} />
+        </DraggableAndDroppableWrapper>
+      ))}
+    </Flex>
   );
 };
 
 export const InvisibleRow: React.FC = () => {
-  return <Box w="500px" minH="10px" bgColor="gray.100"></Box>;
+  return <Box w="100%" minH="10px" bgColor="gray.100"></Box>;
 };
