@@ -29,7 +29,7 @@ export const Row: React.FC<Props> = ({ rowId }) => {
   return (
     <Flex w="100%" minH="100px" bgColor={DEFAULT_COLOR}>
       {items.map((item) => (
-        <DraggableAndDroppableWrapper key={item.id}>
+        <DraggableAndDroppableWrapper itemId={item.id} key={item.id}>
           <CanvasItem itemId={item.id} />
         </DraggableAndDroppableWrapper>
       ))}

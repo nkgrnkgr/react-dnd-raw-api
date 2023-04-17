@@ -1,23 +1,43 @@
 import { Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { dndAtom } from "../store/dnd";
 
 type Props = {
   children: React.ReactNode;
+  itemId: string;
 };
 
-export const DraggableAndDroppableWrapper: React.FC<Props> = ({ children }) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const [isOver, setIsOver] = useState(false);
+export const DraggableAndDroppableWrapper: React.FC<Props> = ({
+  children,
+  itemId,
+}) => {
+  const [dnd, setDnd] = useRecoilState(dndAtom);
 
   return (
     <Box
-      onDragStart={() => setIsDragging(true)}
-      onDragEnd={() => setIsDragging(false)}
+      onDragStart={() => {
+        setDnd({
+          ...dnd,
+          draggingItemId: itemId,
+        });
+      }}
+      onDragEnd={() => {
+        setDnd({
+          ...dnd,
+          draggingItemId: null,
+        });
+      }}
       onDragEnter={() => {
-        setIsOver(true);
+        setDnd({
+          ...dnd,
+          overItemId: itemId,
+        });
       }}
       onDragLeave={() => {
-        setIsOver(false);
+        setDnd({
+          ...dnd,
+          overItemId: null,
+        });
       }}
       onDragOver={(e) => {
         if (e.preventDefault) {
@@ -28,7 +48,6 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({ children }) => {
       h="max-content"
       sx={{
         cursor: "move",
-        opacity: isDragging ? "0.5" : "1.0",
       }}
       draggable="true"
     >

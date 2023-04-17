@@ -1,6 +1,7 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Divider } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { dndAtom } from "../store/dnd";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { InvisibleRow, Row } from "./Row";
@@ -14,6 +15,7 @@ export const Canvas: React.FC = () => {
   const [, setItem2Content] = useRecoilState(itemFamilyAtom("item-2"));
   const [, setItem3Content] = useRecoilState(itemFamilyAtom("item-3"));
   const [, setItem4Content] = useRecoilState(itemFamilyAtom("item-4"));
+  const dnd = useRecoilValue(dndAtom);
 
   useEffect(() => {
     setRow1Content({
@@ -52,14 +54,18 @@ export const Canvas: React.FC = () => {
   }, []);
 
   return (
-    <Box p="50px" w="700px" h="900px" bgColor="white">
-      <InvisibleRow />
-      <Row rowId="row-1" />
-      <InvisibleRow />
-      <Row rowId="row-2" />
-      <InvisibleRow />
-      <Row rowId="row-3" />
-      <InvisibleRow />
-    </Box>
+    <>
+      <Box p="50px" w="700px" h="900px" bgColor="white">
+        <InvisibleRow />
+        <Row rowId="row-1" />
+        <InvisibleRow />
+        <Row rowId="row-2" />
+        <InvisibleRow />
+        <Row rowId="row-3" />
+        <InvisibleRow />
+      </Box>
+      <Divider />
+      <pre>{JSON.stringify(dnd, null, 2)}</pre>
+    </>
   );
 };
