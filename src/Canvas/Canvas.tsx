@@ -9,6 +9,9 @@ export const Canvas: React.FC = () => {
       <InvisibleRow />
       <Row />
       <InvisibleRow />
+      <Row />
+      <InvisibleRow />
+      <Row />
     </Box>
   );
 };
