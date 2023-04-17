@@ -1,54 +1,64 @@
 import { Box } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { itemFamilyAtom } from "../store/item";
+import { rowAtomFamily } from "../store/row";
 import { InvisibleRow, Row } from "./Row";
 
-type ItemProps = {
-  id: string;
-  type: string;
-  label: string;
-};
-
-const ROW_1_ITEMS: ItemProps[] = [
-  {
-    id: "item-1",
-    type: "S",
-    label: "item-1 S",
-  },
-];
-
-const ROW_2_ITEMS: ItemProps[] = [
-  {
-    id: "item-2",
-    type: "S",
-    label: "item-2 S",
-  },
-  {
-    id: "item-3",
-    type: "M",
-    label: "item-3 S",
-  },
-  {
-    id: "item-4",
-    type: "L",
-    label: "item-4 S",
-  },
-];
-
-const ROW_3_ITEMS: ItemProps[] = [];
-
 export const Canvas: React.FC = () => {
-  const [row1Items, setRow1Items] = useState(ROW_1_ITEMS);
-  const [row2Items, setRow2Items] = useState(ROW_2_ITEMS);
-  const [row3Items, setRow3Items] = useState(ROW_3_ITEMS);
+  const [, setRow1Content] = useRecoilState(rowAtomFamily("row-1"));
+  const [, setRow2Content] = useRecoilState(rowAtomFamily("row-2"));
+  const [, setRow3Content] = useRecoilState(rowAtomFamily("row-3"));
+
+  const [, setItem1Content] = useRecoilState(itemFamilyAtom("item-1"));
+  const [, setItem2Content] = useRecoilState(itemFamilyAtom("item-2"));
+  const [, setItem3Content] = useRecoilState(itemFamilyAtom("item-3"));
+  const [, setItem4Content] = useRecoilState(itemFamilyAtom("item-4"));
+
+  useEffect(() => {
+    setRow1Content({
+      id: "row1",
+      itemIds: ["item-1"],
+    });
+    setRow2Content({
+      id: "row2",
+      itemIds: ["item-2", "item-3", "item-4"],
+    });
+    setRow3Content({
+      id: "row3",
+      itemIds: [],
+    });
+
+    setItem1Content({
+      id: "item-1",
+      label: "item-1",
+      type: "S",
+    });
+    setItem2Content({
+      id: "item-2",
+      label: "item-2",
+      type: "S",
+    });
+    setItem3Content({
+      id: "item-3",
+      label: "item-3",
+      type: "M",
+    });
+    setItem4Content({
+      id: "item-4",
+      label: "item-4",
+      type: "L",
+    });
+  }, []);
 
   return (
     <Box p="50px" w="700px" h="900px" bgColor="white">
       <InvisibleRow />
-      <Row items={row1Items} />
+      <Row rowId="row-1" />
       <InvisibleRow />
-      <Row items={row2Items} />
+      <Row rowId="row-2" />
       <InvisibleRow />
-      <Row items={row3Items} />
+      <Row rowId="row-3" />
       <InvisibleRow />
     </Box>
   );

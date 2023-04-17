@@ -13,8 +13,12 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({ children }) => {
     <Box
       onDragStart={() => setIsDragging(true)}
       onDragEnd={() => setIsDragging(false)}
-      onDragEnter={() => setIsOver(true)}
-      onDragLeave={() => setIsOver(false)}
+      onDragEnter={() => {
+        setIsOver(true);
+      }}
+      onDragLeave={() => {
+        setIsOver(false);
+      }}
       onDragOver={(e) => {
         if (e.preventDefault) {
           e.preventDefault();
@@ -25,7 +29,6 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({ children }) => {
       sx={{
         cursor: "move",
         opacity: isDragging ? "0.5" : "1.0",
-        color: isOver ? "red" : "black",
       }}
       draggable="true"
     >
