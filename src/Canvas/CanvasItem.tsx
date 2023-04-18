@@ -3,6 +3,8 @@ import { useRecoilValue } from "recoil";
 import { ITEM_TYPE_SIZE } from "../constants";
 import { itemFamilyAtom } from "../store/item";
 
+export const PLACEHOLDER_ID = "PLACEHOLDER";
+
 type Props = {
   itemId: string;
 };
@@ -10,7 +12,7 @@ type Props = {
 export const CanvasItem: React.FC<Props> = ({ itemId }) => {
   const item = useRecoilValue(itemFamilyAtom(itemId));
 
-  if (item.id === "PLACEHOLDER") {
+  if (item.id === PLACEHOLDER_ID) {
     return (
       <Center w="200px" bgColor="tomato" h="50px">
         <Text>Placeholder</Text>

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDrop } from "react-dnd";
 import { useRecoilState } from "recoil";
 import { rowAtomFamily } from "../store/row";
+import { PLACEHOLDER_ID } from "../Canvas/CanvasItem";
 
 type Props = {
   rowId: string;
@@ -25,11 +26,11 @@ export const DroppableWrapper: React.FC<Props> = ({ children, rowId }) => {
     if (isOver) {
       setRowContent({
         ...rowContent,
-        itemIds: [...rowContent.itemIds, "PLACEHOLDER"],
+        itemIds: [...rowContent.itemIds, PLACEHOLDER_ID],
       });
     } else {
       const filtered = rowContent.itemIds.filter(
-        (itemId) => itemId !== "PLACEHOLDER"
+        (itemId) => itemId !== PLACEHOLDER_ID
       );
       setRowContent({
         ...rowContent,
