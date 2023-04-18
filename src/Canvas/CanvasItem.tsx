@@ -23,12 +23,21 @@ export const CanvasItem: React.FC<Props> = ({ itemId }) => {
           PlaceHolder
         </Text>
       )}
-      <Text w="200px" textAlign="center">
-        {item.label}
-      </Text>
+      {shouldReplacePlaceholder(dnd, itemId) ? (
+        <Text w="200px" textAlign="center">
+          PlaceHolder
+        </Text>
+      ) : (
+        <Text w="200px" textAlign="center">
+          {item.label}
+        </Text>
+      )}
     </Center>
   );
 };
+
+const shouldReplacePlaceholder = (dnd: DndContent, itemId: string) =>
+  dnd.draggingItemId === itemId;
 
 const shouldShowPlaceholder = (dnd: DndContent, itemId: string) => {
   const { draggingItemId, overItemId } = dnd;

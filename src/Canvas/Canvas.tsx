@@ -5,7 +5,6 @@ import { dndAtom } from "../store/dnd";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { InvisibleRow, Row } from "./Row";
-import { PLACEHOLDER_ID } from "./Placeholder";
 
 export const Canvas: React.FC = () => {
   const [, setRow1Content] = useRecoilState(rowAtomFamily("row-1"));
@@ -16,9 +15,7 @@ export const Canvas: React.FC = () => {
   const [, setItem2Content] = useRecoilState(itemFamilyAtom("item-2"));
   const [, setItem3Content] = useRecoilState(itemFamilyAtom("item-3"));
   const [, setItem4Content] = useRecoilState(itemFamilyAtom("item-4"));
-  const [, setPlaceholderContent] = useRecoilState(
-    itemFamilyAtom(PLACEHOLDER_ID)
-  );
+
   const dnd = useRecoilValue(dndAtom);
 
   useEffect(() => {
@@ -54,11 +51,6 @@ export const Canvas: React.FC = () => {
       id: "item-4",
       label: "item-4",
       type: "L",
-    });
-    setPlaceholderContent({
-      id: PLACEHOLDER_ID,
-      label: "PLACEHOLDER",
-      type: "S",
     });
   }, []);
 
