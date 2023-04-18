@@ -3,8 +3,8 @@ import { selector, useRecoilValue } from "recoil";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { CanvasItem } from "./CanvasItem";
-import { DraggableWrapper } from "./DraggableWrappter";
-import { DroppableWrapper } from "./DroppableWrapper";
+import { DraggableWrapper } from "../dnd/DraggableWrapper";
+import { DroppableWrapper } from "../dnd/DroppableWrapper";
 
 type Props = {
   rowId: string;
