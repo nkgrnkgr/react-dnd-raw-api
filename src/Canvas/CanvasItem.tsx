@@ -16,12 +16,17 @@ export const CanvasItem: React.FC<Props> = ({ itemId }) => {
   const width = placeholderShown ? "400px" : "200px";
 
   return (
-    <Center w={width} h={ITEM_TYPE_SIZE[item.type]}>
+    <Center w={width}>
       {placeholderShown && <PlaceHolder itemType={item.type} />}
       {shouldReplacePlaceholder(dnd, itemId) ? (
         <PlaceHolder itemType={item.type} />
       ) : (
-        <Text w="200px" bgColor="cyan.400" textAlign="center">
+        <Text
+          w="200px"
+          h={ITEM_TYPE_SIZE[item.type]}
+          bgColor="cyan.400"
+          textAlign="center"
+        >
           {item.label}
         </Text>
       )}
@@ -29,9 +34,14 @@ export const CanvasItem: React.FC<Props> = ({ itemId }) => {
   );
 };
 
-const PlaceHolder: React.FC<{ itemType: string }> = () => {
+const PlaceHolder: React.FC<{ itemType: string }> = ({ itemType }) => {
   return (
-    <Text w="200px" textAlign="center" bgColor="red.200">
+    <Text
+      w="200px"
+      h={ITEM_TYPE_SIZE[itemType]}
+      textAlign="center"
+      bgColor="red.200"
+    >
       PlaceHolder
     </Text>
   );
