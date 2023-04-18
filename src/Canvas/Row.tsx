@@ -1,5 +1,4 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { useEffect } from "react";
 import { selector, useRecoilState, useRecoilValue } from "recoil";
 import { dndAtom } from "../store/dnd";
 import { itemFamilyAtom } from "../store/item";
@@ -28,17 +27,12 @@ const createRowItemSelector = (rowId: string) =>
 
 export const Row: React.FC<Props> = ({ rowId }) => {
   const items = useRecoilValue(createRowItemSelector(rowId));
-  useDnD(rowId);
 
   return (
     <Flex w="100%" minH="100px" bgColor={DEFAULT_COLOR}>
       {items.map((item) => (
         <DraggableAndDroppableWrapper itemId={item.id} key={item.id}>
-          {item.id === PLACEHOLDER_ID ? (
-            <PlaceHolder />
-          ) : (
-            <CanvasItem itemId={item.id} />
-          )}
+          <CanvasItem itemId={item.id} />
         </DraggableAndDroppableWrapper>
       ))}
     </Flex>
@@ -47,21 +41,4 @@ export const Row: React.FC<Props> = ({ rowId }) => {
 
 export const InvisibleRow: React.FC = () => {
   return <Box w="100%" minH="10px" bgColor="gray.100"></Box>;
-};
-
-const useDnD = (rowId: string) => {
-  const dnd = useRecoilValue(dndAtom);
-  const [rowContent, setRowContent] = useRecoilState(rowAtomFamily(rowId));
-  const index = rowContent.itemIds.findIndex(
-    (itemId) => itemId === dnd.overItemId
-  );
-
-  if (index > -1) {
-    const itemIds = [...rowContent.itemIds];
-    itemIds.splice(index, 0, PLACEHOLDER_ID);
-    setRowContent({
-      ...rowContent,
-      itemIds: rowContent.itemIds,
-    });
-  }
 };

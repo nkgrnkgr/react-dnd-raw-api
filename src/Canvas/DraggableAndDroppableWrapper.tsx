@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import { dndAtom } from "../store/dnd";
 
@@ -14,7 +14,7 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({
   const [dnd, setDnd] = useRecoilState(dndAtom);
 
   return (
-    <Box
+    <Flex
       onDragStart={() => {
         setDnd({
           ...dnd,
@@ -52,6 +52,6 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({
       draggable="true"
     >
       {children}
-    </Box>
+    </Flex>
   );
 };
