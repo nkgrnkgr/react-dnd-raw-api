@@ -6,6 +6,8 @@ type Props = {
   children: React.ReactNode;
   itemId: string;
 };
+const dragImage = document.createElement("img");
+dragImage.src = "overlay.png";
 
 export const DraggableAndDroppableWrapper: React.FC<Props> = ({
   children,
@@ -15,7 +17,9 @@ export const DraggableAndDroppableWrapper: React.FC<Props> = ({
 
   return (
     <Flex
-      onDragStart={() => {
+      onDragStart={(e) => {
+        e.dataTransfer.setDragImage(dragImage, 50, 25);
+
         setDnd({
           ...dnd,
           draggingItemId: itemId,

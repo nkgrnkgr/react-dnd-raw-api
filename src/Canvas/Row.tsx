@@ -1,11 +1,9 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { selector, useRecoilState, useRecoilValue } from "recoil";
-import { dndAtom } from "../store/dnd";
+import { selector, useRecoilValue } from "recoil";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { CanvasItem } from "./CanvasItem";
 import { DraggableAndDroppableWrapper } from "./DraggableAndDroppableWrapper";
-import { PLACEHOLDER_ID, PlaceHolder } from "./Placeholder";
 
 const DEFAULT_COLOR = "gray.300";
 

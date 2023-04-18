@@ -14,21 +14,14 @@ export const CanvasItem: React.FC<Props> = ({ itemId }) => {
   const placeholderShown = shouldShowPlaceholder(dnd, itemId);
 
   const width = placeholderShown ? "400px" : "200px";
-  const bgColor = placeholderShown ? "red.200" : "cyan.400";
 
   return (
-    <Center w={width} h={ITEM_TYPE_SIZE[item.type]} bgColor={bgColor}>
-      {placeholderShown && (
-        <Text w="200px" textAlign="center">
-          PlaceHolder
-        </Text>
-      )}
+    <Center w={width} h={ITEM_TYPE_SIZE[item.type]}>
+      {placeholderShown && <PlaceHolder itemType={item.type} />}
       {shouldReplacePlaceholder(dnd, itemId) ? (
-        <Text w="200px" textAlign="center">
-          PlaceHolder
-        </Text>
+        <PlaceHolder itemType={item.type} />
       ) : (
-        <Text w="200px" textAlign="center">
+        <Text w="200px" bgColor="cyan.400" textAlign="center">
           {item.label}
         </Text>
       )}
@@ -36,8 +29,16 @@ export const CanvasItem: React.FC<Props> = ({ itemId }) => {
   );
 };
 
+const PlaceHolder: React.FC<{ itemType: string }> = () => {
+  return (
+    <Text w="200px" textAlign="center" bgColor="red.200">
+      PlaceHolder
+    </Text>
+  );
+};
+
 const shouldReplacePlaceholder = (dnd: DndContent, itemId: string) =>
-  dnd.draggingItemId === itemId;
+  dnd.overItemId === itemId && dnd.draggingItemId === itemId;
 
 const shouldShowPlaceholder = (dnd: DndContent, itemId: string) => {
   const { draggingItemId, overItemId } = dnd;
