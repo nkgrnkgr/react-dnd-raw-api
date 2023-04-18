@@ -1,7 +1,7 @@
 import { Center, Text } from "@chakra-ui/react";
 import { useRecoilValue } from "recoil";
 import { ITEM_TYPE_SIZE } from "../constants";
-import { dndAtom } from "../store/dnd";
+import { DndContent, dndAtom } from "../store/dnd";
 import { itemFamilyAtom } from "../store/item";
 
 type Props = {
@@ -11,13 +11,14 @@ type Props = {
 export const CanvasItem: React.FC<Props> = ({ itemId }) => {
   const item = useRecoilValue(itemFamilyAtom(itemId));
   const dnd = useRecoilValue(dndAtom);
+  const placeholderShown = shouldShowPlaceholder(dnd, itemId);
 
-  const width = dnd.overItemId === itemId ? "400px" : "200px";
-  const bgColor = dnd.overItemId === itemId ? "red.200" : "cyan.400";
+  const width = placeholderShown ? "400px" : "200px";
+  const bgColor = placeholderShown ? "red.200" : "cyan.400";
 
   return (
     <Center w={width} h={ITEM_TYPE_SIZE[item.type]} bgColor={bgColor}>
-      {dnd.overItemId === itemId && (
+      {placeholderShown && (
         <Text w="200px" textAlign="center">
           PlaceHolder
         </Text>
@@ -27,4 +28,18 @@ export const CanvasItem: React.FC<Props> = ({ itemId }) => {
       </Text>
     </Center>
   );
+};
+
+const shouldShowPlaceholder = (dnd: DndContent, itemId: string) => {
+  const { draggingItemId, overItemId } = dnd;
+
+  if (draggingItemId === itemId) {
+    return false;
+  }
+
+  if (overItemId === itemId) {
+    return true;
+  }
+
+  return false;
 };

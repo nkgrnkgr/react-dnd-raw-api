@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-type DndContent = {
+export type DndContent = {
   draggingItemId: string | null;
   overItemId: string | null;
 };
