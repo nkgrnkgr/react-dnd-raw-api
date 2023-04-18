@@ -26,7 +26,7 @@ export const Row: React.FC<Props> = ({ rowId }) => {
   const items = useRecoilValue(createRowItemSelector(rowId));
 
   return (
-    <DroppableWrapper>
+    <DroppableWrapper rowId={rowId}>
       <Flex w="100%" minH="100px">
         {items.map((item) => (
           <DraggableWrapper key={item.id}>
