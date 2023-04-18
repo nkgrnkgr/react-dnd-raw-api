@@ -6,14 +6,14 @@ type Props = {
 };
 
 export const DraggableWrapper: React.FC<Props> = ({ children }) => {
-  const [{ opacity }, drag] = useDrag(() => ({
+  const [{ display }, drag] = useDrag(() => ({
     type: "FIELD",
     collect: (monitor) => ({
-      opacity: monitor.isDragging() ? 0.5 : 1,
+      display: monitor.isDragging() ? "none" : "block",
     }),
   }));
   return (
-    <Box h="max-content" ref={drag} sx={{ opacity, cursor: "move" }}>
+    <Box h="max-content" ref={drag} sx={{ display, cursor: "move" }}>
       {children}
     </Box>
   );

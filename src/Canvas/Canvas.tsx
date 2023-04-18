@@ -15,6 +15,9 @@ export const Canvas: React.FC = () => {
   const [, setItem2Content] = useRecoilState(itemFamilyAtom("item-2"));
   const [, setItem3Content] = useRecoilState(itemFamilyAtom("item-3"));
   const [, setItem4Content] = useRecoilState(itemFamilyAtom("item-4"));
+  const [, setItemPlaceholderContent] = useRecoilState(
+    itemFamilyAtom("PLACEHOLDER")
+  );
 
   const dnd = useRecoilValue(dndAtom);
 
@@ -51,6 +54,11 @@ export const Canvas: React.FC = () => {
       id: "item-4",
       label: "item-4",
       type: "L",
+    });
+    setItemPlaceholderContent({
+      id: "PLACEHOLDER",
+      label: "Placeholder",
+      type: "S",
     });
   }, []);
 
