@@ -1,7 +1,6 @@
 import { Box, Divider } from "@chakra-ui/react";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { dndAtom } from "../store/dnd";
+import { useRecoilState } from "recoil";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { InvisibleRow, Row } from "./Row";
@@ -18,8 +17,6 @@ export const Canvas: React.FC = () => {
   const [, setItemPlaceholderContent] = useRecoilState(
     itemFamilyAtom("PLACEHOLDER")
   );
-
-  const dnd = useRecoilValue(dndAtom);
 
   useEffect(() => {
     setRow1Content({
