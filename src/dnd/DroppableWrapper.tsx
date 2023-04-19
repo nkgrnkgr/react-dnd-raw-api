@@ -27,7 +27,9 @@ export const DroppableWrapper: React.FC<Props> = ({ children, rowId }) => {
     if (isOver) {
       const index = getIndexForInsert(cursorOffset);
       if (index > -1) {
-        const itemIds = [...rowContent.itemIds];
+        const itemIds = [...rowContent.itemIds].filter(
+          (id) => id !== PLACEHOLDER_ID
+        );
         itemIds.splice(index, 0, PLACEHOLDER_ID);
         setRowContent({
           ...rowContent,
