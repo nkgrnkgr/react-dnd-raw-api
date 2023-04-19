@@ -67,6 +67,7 @@ const getIndexForInsert = (cursor: { x: number; y: number } | null) => {
     if (x < 600) {
       return 2;
     }
+    return 3;
   }
   return -1;
 };
