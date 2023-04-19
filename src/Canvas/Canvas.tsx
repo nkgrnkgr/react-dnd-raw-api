@@ -1,10 +1,10 @@
 import { Box, Divider } from "@chakra-ui/react";
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { dndAtom } from "../store/dnd";
+import { useEffect, useRef } from "react";
+import { useRecoilState } from "recoil";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { InvisibleRow, Row } from "./Row";
+import { PLACEHOLDER_ID } from "./CanvasItem";
 
 export const Canvas: React.FC = () => {
   const [, setRow1Content] = useRecoilState(rowAtomFamily("row-1"));
@@ -15,8 +15,9 @@ export const Canvas: React.FC = () => {
   const [, setItem2Content] = useRecoilState(itemFamilyAtom("item-2"));
   const [, setItem3Content] = useRecoilState(itemFamilyAtom("item-3"));
   const [, setItem4Content] = useRecoilState(itemFamilyAtom("item-4"));
-
-  const dnd = useRecoilValue(dndAtom);
+  const [, setItemPlaceholderContent] = useRecoilState(
+    itemFamilyAtom(PLACEHOLDER_ID)
+  );
 
   useEffect(() => {
     setRow1Content({
@@ -52,6 +53,11 @@ export const Canvas: React.FC = () => {
       label: "item-4",
       type: "L",
     });
+    setItemPlaceholderContent({
+      id: PLACEHOLDER_ID,
+      label: "Placeholder",
+      type: "S",
+    });
   }, []);
 
   return (
@@ -66,7 +72,6 @@ export const Canvas: React.FC = () => {
         <InvisibleRow />
       </Box>
       <Divider />
-      <pre style={{ width: "200px" }}>{JSON.stringify(dnd, null, 2)}</pre>
     </>
   );
 };

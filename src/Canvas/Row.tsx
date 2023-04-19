@@ -3,9 +3,8 @@ import { selector, useRecoilValue } from "recoil";
 import { itemFamilyAtom } from "../store/item";
 import { rowAtomFamily } from "../store/row";
 import { CanvasItem } from "./CanvasItem";
-import { DraggableAndDroppableWrapper } from "./DraggableAndDroppableWrapper";
-
-const DEFAULT_COLOR = "gray.300";
+import { DraggableWrapper } from "../dnd/DraggableWrapper";
+import { DroppableWrapper } from "../dnd/DroppableWrapper";
 
 type Props = {
   rowId: string;
@@ -27,13 +26,15 @@ export const Row: React.FC<Props> = ({ rowId }) => {
   const items = useRecoilValue(createRowItemSelector(rowId));
 
   return (
-    <Flex w="100%" minH="100px" bgColor={DEFAULT_COLOR}>
-      {items.map((item) => (
-        <DraggableAndDroppableWrapper itemId={item.id} key={item.id}>
-          <CanvasItem itemId={item.id} />
-        </DraggableAndDroppableWrapper>
-      ))}
-    </Flex>
+    <DroppableWrapper rowId={rowId}>
+      <Flex w="100%" minH="100px">
+        {items.map((item) => (
+          <DraggableWrapper key={item.id}>
+            <CanvasItem key={item.id} itemId={item.id} />
+          </DraggableWrapper>
+        ))}
+      </Flex>
+    </DroppableWrapper>
   );
 };
 
